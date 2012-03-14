@@ -137,8 +137,13 @@ PROWL_ENABLED = True
 PROWL_PRIORITY = 1
 PROWL_KEYS = None
 PROWL_ONSNATCH = True
-MIRRORLIST = ["musicbrainz.org","headphones","tbueter.com","localhost"]
+MIRRORLIST = ["musicbrainz.org","headphones","tbueter.com","custom"]
 MIRROR = None
+CUSTOMHOST = None
+CUSTOMPORT = None
+CUSTOMSLEEP = None
+HPUSER = None
+HPPASS = None
 
 AUTOWANT_ALBUM = False
 AUTOWANT_SINGLE = False
@@ -209,7 +214,8 @@ def initialize():
                 NZBSORG, NZBSORG_UID, NZBSORG_HASH, NEWZBIN, NEWZBIN_UID, NEWZBIN_PASSWORD, LASTFM_USERNAME, INTERFACE, FOLDER_PERMISSIONS, \
                 ENCODERFOLDER, ENCODER, BITRATE, SAMPLINGFREQUENCY, ENCODE, ADVANCEDENCODER, ENCODEROUTPUTFORMAT, ENCODERQUALITY, ENCODERVBRCBR, \
                 AUTOWANT_ALBUM, AUTOWANT_SINGLE, AUTOWANT_COMPILATION, AUTOWANT_REMIX, AUTOWANT_EP, AUTOWANT_LIVE, AUTOWANT_SOUNDTRACK, \
-                ENCODERLOSSLESS, PROWL_ENABLED, PROWL_PRIORITY, PROWL_KEYS, PROWL_ONSNATCH, MIRRORLIST, MIRROR
+                ENCODERLOSSLESS, PROWL_ENABLED, PROWL_PRIORITY, PROWL_KEYS, PROWL_ONSNATCH, MIRRORLIST, MIRROR, CUSTOMHOST, CUSTOMPORT, \
+                CUSTOMSLEEP, HPUSER, HPPASS
                 
         if __INITIALIZED__:
             return False
@@ -325,6 +331,11 @@ def initialize():
         AUTOWANT_SOUNDTRACK = bool(check_setting_int(CFG, 'General', 'autowant_soundtrack', 0))
         
         MIRROR = check_setting_str(CFG, 'General', 'mirror', 'headphones')
+        CUSTOMHOST = check_setting_str(CFG, 'General', 'customhost', 'localhost')
+        CUSTOMPORT = check_setting_int(CFG, 'General', 'customport', 5000)
+        CUSTOMSLEEP = check_setting_int(CFG, 'General', 'customsleep', 1)
+        HPUSER = check_setting_str(CFG, 'General', 'hpuser', 'username')
+        HPPASS = check_setting_str(CFG, 'General', 'hppass', 'password')
         
         USE_ADVANCED_ENCODING = bool(check_setting_int(CFG, 'General', 'use_advanced_encoding', 1))
 		
@@ -539,6 +550,11 @@ def config_write():
     new_config['General']['autowant_soundtrack'] = AUTOWANT_SOUNDTRACK
     
     new_config['General']['mirror'] = MIRROR
+    new_config['General']['customhost'] = CUSTOMHOST
+    new_config['General']['customport'] = CUSTOMPORT
+    new_config['General']['customsleep'] = CUSTOMSLEEP
+    new_config['General']['hpuser'] = HPUSER
+    new_config['General']['hppass'] = HPPASS
     
     new_config.write()
 
