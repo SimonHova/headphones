@@ -330,7 +330,7 @@ def initialize():
         AUTOWANT_LIVE = bool(check_setting_int(CFG, 'General', 'autowant_live', 0))
         AUTOWANT_SOUNDTRACK = bool(check_setting_int(CFG, 'General', 'autowant_soundtrack', 0))
         
-        MIRROR = check_setting_str(CFG, 'General', 'mirror', 'headphones')
+        MIRROR = check_setting_str(CFG, 'General', 'mirror', 'musicbrainz.org')
         CUSTOMHOST = check_setting_str(CFG, 'General', 'customhost', 'localhost')
         CUSTOMPORT = check_setting_int(CFG, 'General', 'customport', 5000)
         CUSTOMSLEEP = check_setting_int(CFG, 'General', 'customsleep', 1)
