@@ -137,6 +137,12 @@ PROWL_ENABLED = True
 PROWL_PRIORITY = 1
 PROWL_KEYS = None
 PROWL_ONSNATCH = True
+XBMC_ENABLED = False
+XBMC_HOST = None
+XBMC_USERNAME = None
+XBMC_PASSWORD = None
+XBMC_UPDATE = False
+XBMC_NOTIFY = False
 MIRRORLIST = ["musicbrainz.org","headphones","tbueter.com","custom"]
 MIRROR = None
 CUSTOMHOST = None
@@ -215,7 +221,7 @@ def initialize():
                 ENCODERFOLDER, ENCODER, BITRATE, SAMPLINGFREQUENCY, ENCODE, ADVANCEDENCODER, ENCODEROUTPUTFORMAT, ENCODERQUALITY, ENCODERVBRCBR, \
                 AUTOWANT_ALBUM, AUTOWANT_SINGLE, AUTOWANT_COMPILATION, AUTOWANT_REMIX, AUTOWANT_EP, AUTOWANT_LIVE, AUTOWANT_SOUNDTRACK, \
                 ENCODERLOSSLESS, PROWL_ENABLED, PROWL_PRIORITY, PROWL_KEYS, PROWL_ONSNATCH, MIRRORLIST, MIRROR, CUSTOMHOST, CUSTOMPORT, \
-                CUSTOMSLEEP, HPUSER, HPPASS
+                CUSTOMSLEEP, HPUSER, HPPASS, XBMC_ENABLED, XBMC_HOST, XBMC_USERNAME, XBMC_PASSWORD, XBMC_UPDATE, XBMC_NOTIFY
                 
         if __INITIALIZED__:
             return False
@@ -228,6 +234,7 @@ def initialize():
         CheckSection('NZBsorg')
         CheckSection('Newzbin')
         CheckSection('Prowl')
+        CheckSection('XBMC')
         
         # Set global variables based on config file or use defaults
         try:
@@ -329,6 +336,14 @@ def initialize():
         AUTOWANT_EP = bool(check_setting_int(CFG, 'General', 'autowant_ep', 0))
         AUTOWANT_LIVE = bool(check_setting_int(CFG, 'General', 'autowant_live', 0))
         AUTOWANT_SOUNDTRACK = bool(check_setting_int(CFG, 'General', 'autowant_soundtrack', 0))
+        
+        XBMC_ENABLED = bool(check_setting_int(CFG, 'XBMC', 'xbmc_enabled', 0))
+        XBMC_HOST = check_setting_str(CFG, 'XBMC', 'xbmc_host', '')
+        XBMC_USERNAME = check_setting_str(CFG, 'XBMC', 'xbmc_username', '')
+        XBMC_PASSWORD = check_setting_str(CFG, 'XBMC', 'xbmc_password', '')
+        XBMC_UPDATE = bool(check_setting_int(CFG, 'XBMC', 'xbmc_update', 0))
+        XBMC_NOTIFY = bool(check_setting_int(CFG, 'XBMC', 'xbmc_notify', 0))
+        
         
         MIRROR = check_setting_str(CFG, 'General', 'mirror', 'musicbrainz.org')
         CUSTOMHOST = check_setting_str(CFG, 'General', 'customhost', 'localhost')
@@ -523,6 +538,14 @@ def config_write():
     new_config['Prowl']['prowl_keys'] = PROWL_KEYS
     new_config['Prowl']['prowl_onsnatch'] = int(PROWL_ONSNATCH)
     new_config['Prowl']['prowl_priority'] = int(PROWL_PRIORITY)
+    
+    new_config['XBMC'] = {}
+    new_config['XBMC']['xbmc_enabled'] = int(XBMC_ENABLED)
+    new_config['XBMC']['xbmc_host'] = XBMC_HOST
+    new_config['XBMC']['xbmc_username'] = XBMC_USERNAME
+    new_config['XBMC']['xbmc_password'] = XBMC_PASSWORD
+    new_config['XBMC']['xbmc_update'] = int(XBMC_UPDATE)
+    new_config['XBMC']['xbmc_notify'] = int(XBMC_NOTIFY)
     
     new_config['General']['lastfm_username'] = LASTFM_USERNAME
     new_config['General']['interface'] = INTERFACE
